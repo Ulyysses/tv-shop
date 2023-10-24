@@ -1,12 +1,12 @@
-import Number from '../form';
-import './App.css'
+import Form from "../form";
+import "./App.css";
 
 const App = () => {
   return (
-    <main>
-      <Number />
+    <main className="main">
+      <Form />
     </main>
-  )
-}
+  );
+};
 
 export default App;
