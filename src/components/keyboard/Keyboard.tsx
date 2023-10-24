@@ -1,5 +1,6 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import KeyboardContext from "../../context";
+import "./Keyboard.css";
 
 interface IKeyboard {
   setPhoneNumber: (value: string) => void;
@@ -17,8 +18,23 @@ const Number = ({ number }: INumber) => {
     const newPhoneNumber = phoneNumber.replace("_", number.toString());
     setPhoneNumber(newPhoneNumber);
   };
+
+  useEffect(() => {
+    const keydownHandler = (event: KeyboardEvent) => {
+      const keyAsNumber = parseInt(event.key, 10);
+      if (!isNaN(keyAsNumber))
+        setPhoneNumber(phoneNumber.replace("_", keyAsNumber.toString()));
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, [phoneNumber, setPhoneNumber]);
+
   return (
-    <button type="button" onClick={handleNumberClick}>
+    <button type="button" onClick={handleNumberClick} className="number_button">
       {number}
     </button>
   );
@@ -35,8 +51,29 @@ const Clear = () => {
       .join("");
     setPhoneNumber(newPhoneNumber);
   };
+
+  useEffect(() => {
+    const keydownHandler = (event: KeyboardEvent) => {
+      if (event.key === "Backspace") {
+        const reversePhoneNumber = phoneNumber.split("").reverse().join("");
+        const newPhoneNumber = reversePhoneNumber
+          .replace(/\d(?!\+)/, "_")
+          .split("")
+          .reverse()
+          .join("");
+        setPhoneNumber(newPhoneNumber);
+      }
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, [phoneNumber, setPhoneNumber]);
+
   return (
-    <button type="button" onClick={handleClearClick}>
+    <button type="button" onClick={handleClearClick} className="clear_button">
       Стереть
     </button>
   );
@@ -45,7 +82,7 @@ const Clear = () => {
 const Keyboard = ({ setPhoneNumber, phoneNumber, children }: IKeyboard) => {
   return (
     <KeyboardContext.Provider value={{ setPhoneNumber, phoneNumber }}>
-      {children}
+      <div className="keyboard_container">{children}</div>
     </KeyboardContext.Provider>
   );
 };
