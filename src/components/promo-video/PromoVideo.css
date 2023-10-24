@@ -1,0 +1,19 @@
+.video_container {
+    position: relative;
+    width: 1280px; 
+    height: 720px;
+  }
+  
+  .video {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .video_banner {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
