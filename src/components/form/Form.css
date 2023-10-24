@@ -2,9 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: #86d3f4;
   width: 380px;
-  height: 720px;
+  height: 100%;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.form_after {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #86d3f4;
+  width: 380px;
+  height: 100%;
 }
 
 .form_container {
@@ -16,10 +29,44 @@
   background-size: cover;
   height: 720px;
   width: 1280px;
+  position: absolute;
+}
+
+.close_button {
+  position: absolute;
+  display: block;
+  width: 100px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  padding: 10px;
+  font-size: 23px;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+.close_button_active {
+  position: absolute;
+  display: block;
+  width: 100px;
+  color: #ffffff;
+  background-color: #000000;
+  border: 2px solid #000000;
+  padding: 10px;
+  font-size: 23px;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .form_title {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 400;
 }
 
@@ -28,7 +75,13 @@
   font-weight: 800;
   background-color: #86d3f4;
   border: none;
-  width: 280px;
+  width: 284px;
+  padding-bottom: 20px;
+}
+
+.form_text {
+  width: 284px;
+  padding-bottom: 30px;
 }
 
 .form_button {
@@ -44,14 +97,28 @@
   &:hover {
     background-color: #000000;
     color: #ffffff;
+    border: 1px solid #000000;
   }
 }
 
+.form_button_active {
+  cursor: pointer;
+  width: 284px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
 .check {
-  padding-left: 50px;
+  margin-left: 30px;
+  padding-left: 60px;
   color: #4e4e4e;
   padding-bottom: 20px;
   width: 300px;
+  text-align: start;
 }
 
 .input_checkbox {
@@ -62,10 +129,10 @@
 
 .checkbox {
   position: absolute;
-  margin-left: -50px;
+  margin-left: -60px;
   width: 38.86px;
   height: 40px;
-  background-image: url("../../assets/checkbox.svg");
+  background-image: url("../../assets/unchecked.svg");
   cursor: pointer;
 }
 
@@ -73,4 +140,16 @@
   background-image: url("../../assets/checked.svg");
   width: 38.86px;
   height: 40px;
+}
+
+.after_title {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 35px;
+  width: 284px;
+}
+
+.after_text {
+  padding-left: 48px;
+  padding-right: 48px;
 }
