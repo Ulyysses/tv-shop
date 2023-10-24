@@ -4,6 +4,31 @@ import Keyboard from "../keyboard";
 
 export const Form = () => {
   const [phoneNumber, setPhoneNumber] = useState("+7(___)___-__-__");
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const resetTimer = () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+      const newTimer = setTimeout(() => {
+        setIsFormActive(false);
+      }, 10000);
+      timer.current = newTimer;
+    };
+    resetTimer();
+
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("mousemove", resetTimer);
+
+    return () => {
+      window.removeEventListener("keydown", resetTimer);
+      window.addEventListener("mousemove", resetTimer);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
+  }, [timer]);
 
   return (
     <div className="form_container">
