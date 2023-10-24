@@ -1,0 +1,30 @@
+.number_button {
+    width: 88px;
+    padding: 10px;
+    background-color: #86d3f4;
+    border: 2px solid #000000;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #000000;
+        color: #ffffff;
+      }
+}
+
+.clear_button {
+    width: 186px;
+    padding: 10px;
+    text-transform: uppercase;
+    background-color: #86d3f4;
+    border: 2px solid #000000;
+    cursor: pointer;
+}
+
+.keyboard_container {
+    width: 284px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 30px;
+}
