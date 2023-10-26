@@ -1,9 +1,11 @@
+@import "../../variables.css";
+
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #86d3f4;
+  background-color: var(--blue);
   width: 380px;
   height: 100%;
   padding-left: 48px;
@@ -15,7 +17,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #86d3f4;
+  background-color: var(--blue);
   width: 380px;
   height: 100%;
 }
@@ -24,7 +26,7 @@
   background-image: url(../../assets/background.jpg);
   text-align: center;
   background-position: center;
-  background-color: #86d3f4;
+  background-color: var(--blue);
   background-repeat: no-repeat;
   background-size: cover;
   height: 720px;
@@ -36,9 +38,9 @@
   position: absolute;
   display: block;
   width: 100px;
-  color: #000000;
-  background-color: #ffffff;
-  border: 2px solid #000000;
+  color: var(--black);
+  background-color: var(--white);
+  border: 2px solid var(--black);
   padding: 10px;
   font-size: 23px;
   top: 10px;
@@ -46,23 +48,31 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--black);
+    color: var(--white);
   }
+}
+
+.close_button:focus {
+  outline: 2px solid var(--yellow);
 }
 
 .close_button_active {
   position: absolute;
   display: block;
   width: 100px;
-  color: #ffffff;
-  background-color: #000000;
-  border: 2px solid #000000;
+  color: var(--white);
+  background-color: var(--black);
+  border: 2px solid var(--black);
   padding: 10px;
   font-size: 23px;
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+
+.close_button_active {
+  outline: 2px solid var(--yellow);
 }
 
 .form_title {
@@ -73,8 +83,6 @@
 .form_number {
   font-size: 30px;
   font-weight: 800;
-  background-color: #86d3f4;
-  border: none;
   width: 284px;
   padding-bottom: 20px;
 }
@@ -84,38 +92,46 @@
   padding-bottom: 30px;
 }
 
-.form_button {
+.submit_button {
   width: 284px;
   padding-top: 15px;
   padding-bottom: 15px;
   text-transform: uppercase;
-  color: #565656;
-  background-color: #86d3f4;
-  border: 1px solid #565656;
+  color: var(--submit-button);
+  background-color: var(--blue);
+  border: 1px solid var(--submit-button);
   cursor: pointer;
 
   &:hover {
-    background-color: #000000;
-    color: #ffffff;
-    border: 1px solid #000000;
+    background-color: var(--black);
+    color: var(--white);
+    border: 1px solid var(--black);
   }
 }
 
-.form_button_active {
+.submit_button:focus {
+  outline: 2px solid var(--yellow);
+}
+
+.submit_button_active {
   cursor: pointer;
   width: 284px;
   padding-top: 15px;
   padding-bottom: 15px;
   text-transform: uppercase;
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #000000;
+  background-color: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+}
+
+.submit_button_active:focus {
+  outline: 2px solid var(--yellow);
 }
 
 .check {
   margin-left: 30px;
   padding-left: 60px;
-  color: #4e4e4e;
+  color: var(--checkbox-text);
   padding-bottom: 20px;
   width: 300px;
   text-align: start;
@@ -130,16 +146,24 @@
 .checkbox {
   position: absolute;
   margin-left: -60px;
-  width: 38.86px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   background-image: url("../../assets/unchecked.svg");
   cursor: pointer;
 }
 
+.input_checkbox:focus + .checkbox {
+  outline: 2px solid var(--yellow);
+}
+
+.input_checkbox:checked:focus + .checkbox {
+  outline: 2px solid var(--yellow);
+}
+
 .input_checkbox:checked + .checkbox {
   background-image: url("../../assets/checked.svg");
-  width: 38.86px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
 }
 
 .after_title {
@@ -152,4 +176,18 @@
 .after_text {
   padding-left: 48px;
   padding-right: 48px;
+}
+
+.invalid_number_message {
+  color: var(--red);
+  height: 57px;
+  text-transform: uppercase;
+}
+
+.form_number_invalid {
+  color: var(--red);
+  font-size: 30px;
+  font-weight: 800;
+  width: 284px;
+  padding-bottom: 20px;
 }

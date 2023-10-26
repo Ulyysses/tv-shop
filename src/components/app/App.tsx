@@ -1,10 +1,9 @@
 import Form from "../form";
-import "./App.css";
+import css from "./index.module.css";
 
 const App = () => {
   return (
-    <main className="main">
-      <Form />
+    <main className={css.main}>
     </main>
   );
 };

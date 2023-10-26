@@ -1,6 +1,4 @@
-import { ReactNode, useContext, useEffect } from "react";
-import KeyboardContext from "../../context";
-import "./Keyboard.css";
+import css from "./index.module.css";
 
 interface IKeyboard {
   setPhoneNumber: (value: string) => void;
@@ -73,7 +71,12 @@ const Clear = () => {
   }, [phoneNumber, setPhoneNumber]);
 
   return (
-    <button type="button" onClick={handleClearClick} className="clear_button">
+    <button
+      type="button"
+      onClick={handleClearClick}
+      className={css.clear_button}
+      ref={ref}
+    >
       Стереть
     </button>
   );
@@ -82,7 +85,7 @@ const Clear = () => {
 const Keyboard = ({ setPhoneNumber, phoneNumber, children }: IKeyboard) => {
   return (
     <KeyboardContext.Provider value={{ setPhoneNumber, phoneNumber }}>
-      <div className="keyboard_container">{children}</div>
+      <div className={css.keyboard_container}>{children}</div>
     </KeyboardContext.Provider>
   );
 };

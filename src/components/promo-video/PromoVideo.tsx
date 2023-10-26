@@ -1,6 +1,6 @@
 import video from "../../assets/video.mp4";
 import banner from "../../assets/banner.png";
-import "./PromoVideo.css";
+import css from "./index.module.css";
 import { RefObject, useEffect } from "react";
 
 interface IPromoVideo {
@@ -26,13 +26,12 @@ const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPro
   }
 
   return (
-    <div className="video_container" style={{ display: hiddenStyle }}>
-      <video width="1280" height="720" autoPlay muted className="video" ref={refVideo}>
+    <div className={css.video_container} style={{ display: hiddenStyle }}>
+      <video width="1280" height="720" autoPlay muted className={css.video} ref={refVideo}>
         <source src={video} type="video/mp4" />
       </video>
-      <button onClick={handleFormOpen}>
+      <button onClick={handleFormOpen} ref={refBanner} className={css.video_banner}>
         <img
-          className="video_banner"
           src={banner}
           alt="video banner"
         />

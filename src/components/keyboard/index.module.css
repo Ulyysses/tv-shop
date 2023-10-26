@@ -1,0 +1,45 @@
+@import "../../variables.css";
+
+.number_button {
+  width: 88px;
+  padding: 10px;
+  background-color: var(--blue);
+  border: 2px solid var(--black);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}
+
+.number_button:focus {
+  outline: 2px solid var(--yellow);
+}
+
+.clear_button {
+  width: 186px;
+  padding: 10px;
+  text-transform: uppercase;
+  background-color: var(--blue);
+  border: 2px solid var(--black);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}
+
+.clear_button:focus {
+  outline: 2px solid var(--yellow);
+}
+
+.keyboard_container {
+  width: 284px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 30px;
+}

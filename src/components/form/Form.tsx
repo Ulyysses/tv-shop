@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./Form.css";
+import css from "./index.module.css";
 import Keyboard from "../keyboard";
 import PromoVideo from "../promo-video";
 
@@ -77,61 +77,90 @@ export const Form = () => {
       />
 
       {isFormActive ? (
-        <div className="form_container">
+        <div className={css.form_container}>
           {isFormNotCompeleted ? (
-            <form action="" method="post" className="form">
-              <h1 className="form_title">
+            <form action="" method="post" className={css.form}>
+              <h1 className={css.form_title}>
                 Введите ваш номер мобильного телефона
               </h1>
-              <p className="form_number">{phoneNumber}</p>
-              <p className="form_text">
+              <p
+                className={
+                  invalidPhoneNumber ? css.form_number_invalid : css.form_number
+                }
+              >
+                {phoneNumber}
+              </p>
+              <p className={css.form_text}>
                 и с Вами свяжется наш менеджер для дальнейшей консультации
               </p>
               <Keyboard
-                setPhoneNumber={setPhoneNumber}
+                setPhoneNumber={(newNumber) => {
+                  setPhoneNumber(newNumber);
+                  setInvalidPhoneNumber(false);
+                }}
                 phoneNumber={phoneNumber}
               >
-                <Keyboard.Number number={1} />
-                <Keyboard.Number number={2} />
-                <Keyboard.Number number={3} />
-                <Keyboard.Number number={4} />
-                <Keyboard.Number number={5} />
-                <Keyboard.Number number={6} />
-                <Keyboard.Number number={7} />
-                <Keyboard.Number number={8} />
-                <Keyboard.Number number={9} />
+                <Keyboard.Number number={"1"} />
+                <Keyboard.Number number={"2"} />
+                <Keyboard.Number number={"3"} />
+                <Keyboard.Number number={"4"} />
+                <Keyboard.Number number={"5"} />
+                <Keyboard.Number number={"6"} />
+                <Keyboard.Number number={"7"} />
+                <Keyboard.Number number={"8"} />
+                <Keyboard.Number number={"9"} />
                 <Keyboard.Clear />
-                <Keyboard.Number number={0} />
+                <Keyboard.Number number={"0"} />
               </Keyboard>
-              <label htmlFor="data" className="check">
-                <input
-                  type="checkbox"
-                  id="data"
-                  name="data"
-                  className="input_checkbox"
-                  checked={isCheckboxChecked}
-                  onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
-                />
-                <span className="checkbox"></span>
-                Согласие на обработку персональных данных
-              </label>
+              {invalidPhoneNumber ? (
+                <p className={css.invalid_number_message}>
+                  Неверно введен номер
+                </p>
+              ) : (
+                <label htmlFor="data" className={css.check}>
+                  <input
+                    type="checkbox"
+                    id="data"
+                    name="data"
+                    className={css.input_checkbox}
+                    checked={isCheckboxChecked}
+                    onChange={() => setIsCheckboxChecked(!isCheckboxChecked)}
+                    ref={refCheckbox}
+                  />
+                  <span className={css.checkbox}></span>
+                  Согласие на обработку персональных данных
+                </label>
+              )}
               <button
-                className={formButton}
+                className={
+                  isActiveSubmitButton
+                    ? css.submit_button_active
+                    : css.submit_button
+                }
                 onClick={toggleFormVisibility}
                 type="button"
+                ref={refSubmitButton}
               >
                 Подтвердить номер
               </button>
             </form>
           ) : (
-            <div className="form_after">
-              <h2 className="after_title">Заявка принята</h2>
-              <p className="after_text">Держите телефон под рукой.</p>
-              <p className="after_text">Скоро с Вами свяжется наш менеджер.</p>
+            <div className={css.form_after}>
+              <h2 className={css.after_title}>Заявка принята</h2>
+              <p className={css.after_text}>Держите телефон под рукой.</p>
+              <p className={css.after_text}>
+                Скоро с Вами свяжется наш менеджер.
+              </p>
             </div>
           )}
 
-          <button className={closeButton} onClick={handleVideoPlay}>
+          <button
+            className={
+              isFormNotCompeleted ? css.close_button : css.close_button_active
+            }
+            onClick={handleVideoPlay}
+            ref={refCloseButton}
+          >
             Х
           </button>
         </div>
