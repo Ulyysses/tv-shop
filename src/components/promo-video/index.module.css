@@ -4,6 +4,10 @@
   height: 720px;
 }
 
+.video_none {
+  display: none;
+}
+
 .video {
   width: 100%;
   height: 100%;

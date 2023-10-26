@@ -7,10 +7,9 @@ interface IPromoVideo {
   refVideo: RefObject<HTMLVideoElement>;
   isFormActive: boolean;
   setIsFormActive: (value: boolean) => void;
-  hiddenStyle: string;
 }
 
-const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPromoVideo) => {
+const PromoVideo = ({refVideo, isFormActive, setIsFormActive}: IPromoVideo) => {
   const refBanner = useRef<HTMLButtonElement | null>(null);
 
   const handleFormOpen = () => {
@@ -44,7 +43,7 @@ const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPro
   }, []);
 
   return (
-    <div className={css.video_container} style={{ display: hiddenStyle }}>
+    <div className={isFormActive? css.video_none : css.video_container}>
       <video width="1280" height="720" autoPlay muted loop className={css.video} ref={refVideo}>
         <source src={video} type="video/mp4" />
       </video>

@@ -1,18 +1,20 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import css from "./index.module.css";
 import Keyboard from "../keyboard";
-import PromoVideo from "../promo-video";
 import NavigationBoardContext from "../../context/navigation-context/NavigationBoardContext";
 
-export const Form = () => {
+interface IForm {
+  isFormActive: boolean;
+  setIsFormActive: (value: boolean) => void;
+}
+
+export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
   const [phoneNumber, setPhoneNumber] = useState("+7(___)___-__-__");
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [isFormNotCompeleted, setIsFormNotCompeleted] = useState(true);
-  const [isFormActive, setIsFormActive] = useState(false);
   const [invalidPhoneNumber, setInvalidPhoneNumber] = useState(false);
   const [isActiveSubmitButton, setIsActiveSubmitButton] = useState(false);
 
-  const refVideo = useRef<HTMLVideoElement | null>(null);
   const refSubmitButton = useRef<HTMLButtonElement | null>(null);
   const refCloseButton = useRef<HTMLButtonElement | null>(null);
   const refCheckbox = useRef<HTMLInputElement | null>(null);
@@ -76,7 +78,7 @@ export const Form = () => {
         clearTimeout(timer.current);
       }
     };
-  }, [timer]);
+  }, [setIsFormActive, timer]);
 
   useEffect(() => {
     setInvalidPhoneNumber(false);
@@ -108,14 +110,7 @@ export const Form = () => {
 
   return (
     <>
-      <PromoVideo
-        refVideo={refVideo}
-        isFormActive={isFormActive}
-        setIsFormActive={setIsFormActive}
-        hiddenStyle={isFormActive ? "none" : ""}
-      />
-
-      {isFormActive ? (
+      {isFormActive && (
         <div className={css.form_container}>
           {isFormNotCompeleted ? (
             <form className={css.form}>
@@ -197,7 +192,7 @@ export const Form = () => {
             Х
           </button>
         </div>
-      ) : null}
+      )}
     </>
   );
 };
