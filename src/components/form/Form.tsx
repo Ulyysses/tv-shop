@@ -84,12 +84,14 @@ export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
 
   useEffect(() => {
     setInvalidPhoneNumber(false);
-    if (position.x >= 0 && position.x <= 2 && position.y === 4) {
-      refCheckbox.current?.focus();
-    } else if (position.x >= 0 && position.x <= 2 && position.y === 5) {
-      refSubmitButton.current?.focus();
-    } else if (position.x >= 0 && position.x <= 2 && position.y === 6) {
-      refCloseButton.current?.focus();
+    if (position.x >= 0 && position.x <= 2) {
+      if (position.y === 4) {
+        refCheckbox.current?.focus();
+      } else if (position.y === 5) {
+        refSubmitButton.current?.focus();
+      } else if (position.y === 6) {
+        refCloseButton.current?.focus();
+      }
     }
   }, [position]);
 
