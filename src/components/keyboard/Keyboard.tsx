@@ -117,10 +117,7 @@ const Clear = () => {
   }, [phoneNumber, setPhoneNumber]);
 
   useEffect(() => {
-    if (
-      (position.x === 0 && position.y === 3) ||
-      (position.x === 1 && position.y === 3)
-    ) {
+    if (position.x >= 0 && position.x <= 1 && position.y === 3) {
       ref.current?.focus();
     }
   }, [position]);
