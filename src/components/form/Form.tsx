@@ -40,6 +40,11 @@ export const Form = () => {
     setPhoneNumber("+7(___)___-__-__");
   };
 
+  const changeNumber = useCallback((newNumber: string) => {
+    setPhoneNumber(newNumber);
+    setInvalidPhoneNumber(false);
+  }, []);
+
   useEffect(() => {
     const fullNumber = /^\d{11}$/;
     if (fullNumber.test(cleanedNumber) && isCheckboxChecked) {
@@ -127,13 +132,7 @@ export const Form = () => {
               <p className={css.form_text}>
                 и с Вами свяжется наш менеджер для дальнейшей консультации
               </p>
-              <Keyboard
-                setPhoneNumber={(newNumber) => {
-                  setPhoneNumber(newNumber);
-                  setInvalidPhoneNumber(false);
-                }}
-                phoneNumber={phoneNumber}
-              >
+              <Keyboard setPhoneNumber={changeNumber} phoneNumber={phoneNumber}>
                 <Keyboard.Number number={"1"} />
                 <Keyboard.Number number={"2"} />
                 <Keyboard.Number number={"3"} />
