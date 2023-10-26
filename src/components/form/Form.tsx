@@ -118,7 +118,7 @@ export const Form = () => {
       {isFormActive ? (
         <div className={css.form_container}>
           {isFormNotCompeleted ? (
-            <form action="" method="post" className={css.form}>
+            <form className={css.form}>
               <h1 className={css.form_title}>
                 Введите ваш номер мобильного телефона
               </h1>
