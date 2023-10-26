@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import css from "./index.module.css";
 import Keyboard from "../keyboard";
 import PromoVideo from "../promo-video";
+import NavigationBoardContext from "../../context/navigation-context/NavigationBoardContext";
 
 export const Form = () => {
   const [phoneNumber, setPhoneNumber] = useState("+7(___)___-__-__");
@@ -66,6 +67,34 @@ export const Form = () => {
       }
     };
   }, [timer]);
+
+  useEffect(() => {
+    setInvalidPhoneNumber(false);
+    if (position.x >= 0 && position.x <= 2 && position.y === 4) {
+      refCheckbox.current?.focus();
+    } else if (position.x >= 0 && position.x <= 2 && position.y === 5) {
+      refSubmitButton.current?.focus();
+    } else if (position.x >= 0 && position.x <= 2 && position.y === 6) {
+      refCloseButton.current?.focus();
+    }
+  }, [position]);
+
+  useEffect(() => {
+    const keydownHandler = (event: KeyboardEvent) => {
+      if (
+        event.key === "Enter" &&
+        refCheckbox.current === document.activeElement
+      ) {
+        setIsCheckboxChecked(!isCheckboxChecked);
+      }
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, [isCheckboxChecked]);
 
   return (
     <>
