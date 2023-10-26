@@ -4,7 +4,7 @@ const KeyboardContext = createContext({
   setPhoneNumber: (string: string) => {
     console.log(string);
   },
-  phoneNumber: ''
+  phoneNumber: "",
 });
 
 export default KeyboardContext;

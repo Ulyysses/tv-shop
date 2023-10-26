@@ -1,3 +1,3 @@
 export const plugins = {
-    'postcss-nesting': {},
+  "postcss-nesting": {},
 };

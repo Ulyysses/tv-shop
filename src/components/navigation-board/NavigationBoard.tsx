@@ -40,9 +40,9 @@ const NavigationBoard = ({ children }: INavigationBoard) => {
         default:
           break;
       }
-        setPosition({ x, y });
+      setPosition({ x, y });
     },
-    [board, position]
+    [board, position],
   );
 
   useEffect(() => {
