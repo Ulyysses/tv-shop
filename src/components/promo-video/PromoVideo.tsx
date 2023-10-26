@@ -1,7 +1,7 @@
 import video from "../../assets/video.mp4";
 import banner from "../../assets/banner.png";
 import css from "./index.module.css";
-import { RefObject, useEffect } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 interface IPromoVideo {
   refVideo: RefObject<HTMLVideoElement>;
@@ -11,7 +11,12 @@ interface IPromoVideo {
 }
 
 const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPromoVideo) => {
-  
+  const refBanner = useRef<HTMLButtonElement | null>(null);
+
+  const handleFormOpen = () => {
+    setIsFormActive(true)
+  }
+
     useEffect(() => {
     if (!isFormActive) {
       refVideo.current?.play();
@@ -21,9 +26,22 @@ const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPro
     }
   }, [isFormActive, refVideo, setIsFormActive]);
 
-  const handleFormOpen = () => {
-    setIsFormActive(true)
-  }
+  useEffect(() => {
+    const keydownHandler = (event: KeyboardEvent) => {
+      if (
+        event.key === "Enter" &&
+        refBanner.current
+      ) {
+        refBanner.current.focus();
+      }
+    };
+
+    window.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      window.removeEventListener("keydown", keydownHandler);
+    };
+  }, []);
 
   return (
     <div className={css.video_container} style={{ display: hiddenStyle }}>
