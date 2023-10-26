@@ -1,7 +1,9 @@
+import { RefObject, useEffect, useRef } from "react";
+
 import video from "../../assets/video.mp4";
 import banner from "../../assets/banner.png";
+
 import css from "./index.module.css";
-import { RefObject, useEffect, useRef } from "react";
 
 interface IPromoVideo {
   refVideo: RefObject<HTMLVideoElement>;

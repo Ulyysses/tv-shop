@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
+
 import Form from "../form";
 import NavigationBoard from "../navigation-board";
-import css from "./index.module.css";
 import PromoVideo from "../promo-video";
+
+import css from "./index.module.css";
 
 const App = () => {
   const [isFormActive, setIsFormActive] = useState(false);

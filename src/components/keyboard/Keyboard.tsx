@@ -1,7 +1,9 @@
 import { ReactNode, useContext, useEffect, useRef } from "react";
+
 import KeyboardContext from "../../context/keyboard-context";
-import css from "./index.module.css";
 import NavigationBoardContext from "../../context/navigation-context";
+
+import css from "./index.module.css";
 
 interface IKeyboard {
   setPhoneNumber: (value: string) => void;

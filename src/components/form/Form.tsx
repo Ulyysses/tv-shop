@@ -1,7 +1,9 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import css from "./index.module.css";
+
 import Keyboard from "../keyboard";
 import NavigationBoardContext from "../../context/navigation-context/NavigationBoardContext";
+
+import css from "./index.module.css";
 
 interface IForm {
   isFormActive: boolean;
