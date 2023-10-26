@@ -71,7 +71,7 @@
   cursor: pointer;
 }
 
-.close_button_active {
+.close_button_active:focus {
   outline: 2px solid var(--yellow);
 }
 

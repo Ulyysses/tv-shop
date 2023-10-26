@@ -94,6 +94,12 @@ export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
   }, [position]);
 
   useEffect(() => {
+    if (refCloseButton.current && !isFormNotCompeleted) {
+      refCloseButton.current.focus();
+    }
+  }, [isFormNotCompeleted]);
+
+  useEffect(() => {
     const keydownHandler = (event: KeyboardEvent) => {
       if (
         event.key === "Enter" &&
