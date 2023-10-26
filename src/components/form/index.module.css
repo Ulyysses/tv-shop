@@ -81,8 +81,8 @@
 }
 
 .form_number {
-  font-size: 30px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 700;
   width: 284px;
   padding-bottom: 20px;
 }
@@ -168,14 +168,13 @@
 
 .after_title {
   text-transform: uppercase;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 35px;
   width: 284px;
 }
 
 .after_text {
-  padding-left: 48px;
-  padding-right: 48px;
+  font-size: 16px;
 }
 
 .invalid_number_message {
@@ -187,7 +186,7 @@
 .form_number_invalid {
   color: var(--red);
   font-size: 30px;
-  font-weight: 800;
+  font-weight: 700;
   width: 284px;
   padding-bottom: 20px;
 }
