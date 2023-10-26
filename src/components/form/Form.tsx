@@ -9,32 +9,30 @@ export const Form = () => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [isFormNotCompeleted, setIsFormNotCompeleted] = useState(true);
   const [isFormActive, setIsFormActive] = useState(false);
+  const [invalidPhoneNumber, setInvalidPhoneNumber] = useState(false);
+  const [isActiveSubmitButton, setIsActiveSubmitButton] = useState(false);
 
   const refVideo = useRef<HTMLVideoElement | null>(null);
+  const refSubmitButton = useRef<HTMLButtonElement | null>(null);
+  const refCloseButton = useRef<HTMLButtonElement | null>(null);
+  const refCheckbox = useRef<HTMLInputElement | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const fullNumber = /^\d{11}$/;
+  const position = useContext(NavigationBoardContext);
+
   const cleanedNumber = phoneNumber.replace(/\D/g, "");
 
-  const checkedCheckbox = isCheckboxChecked;
-
-  const formButton =
-    fullNumber.test(cleanedNumber) && checkedCheckbox
-      ? "form_button_active"
-      : "form_button";
-
-  let closeButton = "close_button";
-
   const toggleFormVisibility = () => {
-    if (formButton === "form_button_active") {
+    if (isActiveSubmitButton) {
       setIsFormNotCompeleted(false);
     }
-  };
 
-  if (!isFormNotCompeleted) {
-    closeButton = "close_button_active";
-  } else {
-    closeButton = "close_button";
-  }
+    if (phoneNumber.includes("_")) {
+      setInvalidPhoneNumber(true);
+    } else {
+      setInvalidPhoneNumber(false);
+    }
+  };
 
   const handleVideoPlay = () => {
     setIsFormActive(false);
@@ -42,7 +40,14 @@ export const Form = () => {
     setPhoneNumber("+7(___)___-__-__");
   };
 
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const fullNumber = /^\d{11}$/;
+    if (fullNumber.test(cleanedNumber) && isCheckboxChecked) {
+      setIsActiveSubmitButton(true);
+    } else {
+      setIsActiveSubmitButton(false);
+    }
+  }, [isCheckboxChecked, cleanedNumber]);
 
   useEffect(() => {
     const resetTimer = () => {
