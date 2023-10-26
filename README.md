@@ -6,7 +6,7 @@ In the project directory, you can run:
 
 ### `npm run dev`
 
-Launches the application in development mode using Vite. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.
+Launches the application in development mode using Vite.
 
 ### `npm run build`
 
