@@ -1,4 +1,7 @@
+import { ReactNode, useContext, useEffect, useRef } from "react";
+import KeyboardContext from "../../context/keyboard-context";
 import css from "./index.module.css";
+import NavigationBoardContext from "../../context/navigation-context";
 
 interface IKeyboard {
   setPhoneNumber: (value: string) => void;
@@ -7,11 +10,34 @@ interface IKeyboard {
 }
 
 interface INumber {
-  number: number;
+  number: string;
 }
 
+type NumberToPositionMap = {
+  [key: string]: {
+    x: number;
+    y: number;
+  };
+};
+
+const numberToPositionMap: NumberToPositionMap = {
+  "1": { x: 0, y: 0 },
+  "2": { x: 1, y: 0 },
+  "3": { x: 2, y: 0 },
+  "4": { x: 0, y: 1 },
+  "5": { x: 1, y: 1 },
+  "6": { x: 2, y: 1 },
+  "7": { x: 0, y: 2 },
+  "8": { x: 1, y: 2 },
+  "9": { x: 2, y: 2 },
+  "0": { x: 2, y: 3 },
+};
+
 const Number = ({ number }: INumber) => {
+  const position = useContext(NavigationBoardContext);
   const { setPhoneNumber, phoneNumber } = useContext(KeyboardContext);
+  const ref = useRef<HTMLButtonElement | null>(null);
+
   const handleNumberClick = () => {
     const newPhoneNumber = phoneNumber.replace("_", number.toString());
     setPhoneNumber(newPhoneNumber);
@@ -20,8 +46,9 @@ const Number = ({ number }: INumber) => {
   useEffect(() => {
     const keydownHandler = (event: KeyboardEvent) => {
       const keyAsNumber = parseInt(event.key, 10);
-      if (!isNaN(keyAsNumber))
+      if (!isNaN(keyAsNumber)) {
         setPhoneNumber(phoneNumber.replace("_", keyAsNumber.toString()));
+      }
     };
 
     window.addEventListener("keydown", keydownHandler);
@@ -31,15 +58,34 @@ const Number = ({ number }: INumber) => {
     };
   }, [phoneNumber, setPhoneNumber]);
 
+  useEffect(() => {
+    const correctPosition = numberToPositionMap[number];
+    if (
+      correctPosition &&
+      position.x === correctPosition.x &&
+      position.y === correctPosition.y
+    ) {
+      ref.current?.focus();
+    }
+  }, [number, position]);
+
   return (
-    <button type="button" onClick={handleNumberClick} className="number_button">
+    <button
+      type="button"
+      onClick={handleNumberClick}
+      className={css.number_button}
+      ref={ref}
+    >
       {number}
     </button>
   );
 };
 
 const Clear = () => {
+  const position = useContext(NavigationBoardContext);
   const { setPhoneNumber, phoneNumber } = useContext(KeyboardContext);
+  const ref = useRef<HTMLButtonElement | null>(null);
+
   const handleClearClick = () => {
     const reversePhoneNumber = phoneNumber.split("").reverse().join("");
     const newPhoneNumber = reversePhoneNumber
@@ -69,6 +115,15 @@ const Clear = () => {
       window.removeEventListener("keydown", keydownHandler);
     };
   }, [phoneNumber, setPhoneNumber]);
+
+  useEffect(() => {
+    if (
+      (position.x === 0 && position.y === 3) ||
+      (position.x === 1 && position.y === 3)
+    ) {
+      ref.current?.focus();
+    }
+  }, [position]);
 
   return (
     <button
