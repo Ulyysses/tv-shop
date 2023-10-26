@@ -11,49 +11,51 @@ interface IPromoVideo {
   setIsFormActive: (value: boolean) => void;
 }
 
-const PromoVideo = ({refVideo, isFormActive, setIsFormActive}: IPromoVideo) => {
+const PromoVideo = ({
+  refVideo,
+  isFormActive,
+  setIsFormActive,
+}: IPromoVideo) => {
   const refBanner = useRef<HTMLButtonElement | null>(null);
 
   const handleFormOpen = () => {
-    setIsFormActive(true)
-  }
+    setIsFormActive(true);
+  };
 
-    useEffect(() => {
+  useEffect(() => {
     if (!isFormActive) {
       refVideo.current?.play();
     } else {
       refVideo.current?.pause();
-      setIsFormActive(true)
+      setIsFormActive(true);
     }
   }, [isFormActive, refVideo, setIsFormActive]);
 
   useEffect(() => {
-    const keydownHandler = (event: KeyboardEvent) => {
-      if (
-        event.key === "Enter" &&
-        refBanner.current
-      ) {
-        refBanner.current.focus();
-      }
-    };
-
-    window.addEventListener("keydown", keydownHandler);
-
-    return () => {
-      window.removeEventListener("keydown", keydownHandler);
-    };
-  }, []);
+    if (refBanner.current && !isFormActive) {
+      refBanner.current.focus();
+    }
+  }, [isFormActive]);
 
   return (
-    <div className={isFormActive? css.video_none : css.video_container}>
-      <video width="1280" height="720" autoPlay muted loop className={css.video} ref={refVideo}>
+    <div className={isFormActive ? css.video_none : css.video_container}>
+      <video
+        width="1280"
+        height="720"
+        autoPlay
+        muted
+        loop
+        className={css.video}
+        ref={refVideo}
+      >
         <source src={video} type="video/mp4" />
       </video>
-      <button onClick={handleFormOpen} ref={refBanner} className={css.video_banner}>
-        <img
-          src={banner}
-          alt="video banner"
-        />
+      <button
+        onClick={handleFormOpen}
+        ref={refBanner}
+        className={css.video_banner}
+      >
+        <img src={banner} alt="video banner" />
       </button>
     </div>
   );
