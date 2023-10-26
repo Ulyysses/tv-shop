@@ -45,7 +45,7 @@ const PromoVideo = ({refVideo, isFormActive, setIsFormActive, hiddenStyle}: IPro
 
   return (
     <div className={css.video_container} style={{ display: hiddenStyle }}>
-      <video width="1280" height="720" autoPlay muted className={css.video} ref={refVideo}>
+      <video width="1280" height="720" autoPlay muted loop className={css.video} ref={refVideo}>
         <source src={video} type="video/mp4" />
       </video>
       <button onClick={handleFormOpen} ref={refBanner} className={css.video_banner}>
