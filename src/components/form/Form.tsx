@@ -4,6 +4,7 @@ import Keyboard from "../keyboard";
 import NavigationBoardContext from "../../context/navigation-context/NavigationBoardContext";
 
 import css from "./index.module.css";
+import { useKeyboardEvent, usePosition } from "../../hooks";
 
 interface IForm {
   isFormActive: boolean;
@@ -25,6 +26,15 @@ export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
   const position = useContext(NavigationBoardContext);
 
   const cleanedNumber = phoneNumber.replace(/\D/g, "");
+
+  const condition = position.x >= 0 && position.x <= 2;
+  const refCheckboxCondition = condition && position.y === 4;
+  const refSubmitButtonCondition = condition && position.y === 5;
+  const refCloseButtonCondition = condition && position.y === 6;
+
+  usePosition(refCheckboxCondition, refCheckbox);
+  usePosition(refSubmitButtonCondition, refSubmitButton);
+  usePosition(refCloseButtonCondition, refCloseButton);
 
   const toggleFormVisibility = () => {
     if (isActiveSubmitButton) {
@@ -48,6 +58,20 @@ export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
     setPhoneNumber(newNumber);
     setInvalidPhoneNumber(false);
   }, []);
+
+  const keyboardEvent = useCallback(
+    (event: KeyboardEvent) => {
+      if (
+        event.key === "Enter" &&
+        refCheckbox.current === document.activeElement
+      ) {
+        setIsCheckboxChecked(!isCheckboxChecked);
+      }
+    },
+    [isCheckboxChecked]
+  );
+
+  useKeyboardEvent(keyboardEvent);
 
   useEffect(() => {
     const fullNumber = /^\d{11}$/;
@@ -83,40 +107,10 @@ export const Form = ({ isFormActive, setIsFormActive }: IForm) => {
   }, [setIsFormActive, timer]);
 
   useEffect(() => {
-    setInvalidPhoneNumber(false);
-    if (position.x >= 0 && position.x <= 2) {
-      if (position.y === 4) {
-        refCheckbox.current?.focus();
-      } else if (position.y === 5) {
-        refSubmitButton.current?.focus();
-      } else if (position.y === 6) {
-        refCloseButton.current?.focus();
-      }
-    }
-  }, [position]);
-
-  useEffect(() => {
     if (refCloseButton.current && !isFormNotCompeleted) {
       refCloseButton.current.focus();
     }
   }, [isFormNotCompeleted]);
-
-  useEffect(() => {
-    const keydownHandler = (event: KeyboardEvent) => {
-      if (
-        event.key === "Enter" &&
-        refCheckbox.current === document.activeElement
-      ) {
-        setIsCheckboxChecked(!isCheckboxChecked);
-      }
-    };
-
-    window.addEventListener("keydown", keydownHandler);
-
-    return () => {
-      window.removeEventListener("keydown", keydownHandler);
-    };
-  }, [isCheckboxChecked]);
 
   return (
     <>

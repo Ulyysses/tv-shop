@@ -1,6 +1,7 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 
 import NavigationBoardContext from "../../context/navigation-context/NavigationBoardContext";
+import { useKeyboardEvent } from "../../hooks";
 
 interface INavigationBoard {
   children: ReactNode;
@@ -42,11 +43,11 @@ const NavigationBoard = ({ children }: INavigationBoard) => {
       }
       setPosition({ x, y });
     },
-    [board, position],
+    [board, position]
   );
 
-  useEffect(() => {
-    const keydownHandler = (event: KeyboardEvent) => {
+  const keyboardEvent = useCallback(
+    (event: KeyboardEvent) => {
       if (event.key === "ArrowUp") {
         move("up");
       } else if (event.key === "ArrowDown") {
@@ -56,14 +57,11 @@ const NavigationBoard = ({ children }: INavigationBoard) => {
       } else if (event.key === "ArrowRight") {
         move("right");
       }
-    };
+    },
+    [move]
+  );
 
-    window.addEventListener("keydown", keydownHandler);
-
-    return () => {
-      window.removeEventListener("keydown", keydownHandler);
-    };
-  }, [move]);
+  useKeyboardEvent(keyboardEvent);
 
   return (
     <NavigationBoardContext.Provider value={position}>

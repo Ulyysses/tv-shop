@@ -1,9 +1,10 @@
-import { ReactNode, useContext, useEffect, useRef } from "react";
+import { ReactNode, useCallback, useContext, useRef } from "react";
 
 import KeyboardContext from "../../context/keyboard-context";
 import NavigationBoardContext from "../../context/navigation-context";
 
 import css from "./index.module.css";
+import { useKeyboardEvent, usePosition } from "../../hooks";
 
 interface IKeyboard {
   setPhoneNumber: (value: string) => void;
@@ -45,31 +46,26 @@ const Number = ({ number }: INumber) => {
     setPhoneNumber(newPhoneNumber);
   };
 
-  useEffect(() => {
-    const keydownHandler = (event: KeyboardEvent) => {
+  const keyboardEvent = useCallback(
+    (event: KeyboardEvent) => {
       const keyAsNumber = parseInt(event.key, 10);
       if (!isNaN(keyAsNumber)) {
         setPhoneNumber(phoneNumber.replace("_", keyAsNumber.toString()));
       }
-    };
+    },
+    [phoneNumber, setPhoneNumber]
+  );
 
-    window.addEventListener("keydown", keydownHandler);
+  useKeyboardEvent(keyboardEvent);
 
-    return () => {
-      window.removeEventListener("keydown", keydownHandler);
-    };
-  }, [phoneNumber, setPhoneNumber]);
+  const correctPosition = numberToPositionMap[number];
 
-  useEffect(() => {
-    const correctPosition = numberToPositionMap[number];
-    if (
-      correctPosition &&
-      position.x === correctPosition.x &&
-      position.y === correctPosition.y
-    ) {
-      ref.current?.focus();
-    }
-  }, [number, position]);
+  const condition =
+    correctPosition &&
+    position.x === correctPosition.x &&
+    position.y === correctPosition.y;
+
+  usePosition(condition, ref);
 
   return (
     <button
@@ -98,8 +94,8 @@ const Clear = () => {
     setPhoneNumber(newPhoneNumber);
   };
 
-  useEffect(() => {
-    const keydownHandler = (event: KeyboardEvent) => {
+  const keyboardEvent = useCallback(
+    (event: KeyboardEvent) => {
       if (event.key === "Backspace") {
         const reversePhoneNumber = phoneNumber.split("").reverse().join("");
         const newPhoneNumber = reversePhoneNumber
@@ -109,20 +105,15 @@ const Clear = () => {
           .join("");
         setPhoneNumber(newPhoneNumber);
       }
-    };
+    },
+    [phoneNumber, setPhoneNumber]
+  );
 
-    window.addEventListener("keydown", keydownHandler);
+  useKeyboardEvent(keyboardEvent);
 
-    return () => {
-      window.removeEventListener("keydown", keydownHandler);
-    };
-  }, [phoneNumber, setPhoneNumber]);
+  const condition = position.x >= 0 && position.x <= 1 && position.y === 3;
 
-  useEffect(() => {
-    if (position.x >= 0 && position.x <= 1 && position.y === 3) {
-      ref.current?.focus();
-    }
-  }, [position]);
+  usePosition(condition, ref);
 
   return (
     <button
