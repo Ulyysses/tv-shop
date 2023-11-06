@@ -54,7 +54,7 @@
 }
 
 .close_button:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .close_button_active {
@@ -72,7 +72,7 @@
 }
 
 .close_button_active:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .form_title {
@@ -110,7 +110,7 @@
 }
 
 .submit_button:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .submit_button_active {
@@ -125,7 +125,7 @@
 }
 
 .submit_button_active:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .check {
@@ -153,11 +153,11 @@
 }
 
 .input_checkbox:focus + .checkbox {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .input_checkbox:checked:focus + .checkbox {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .input_checkbox:checked + .checkbox {

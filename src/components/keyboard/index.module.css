@@ -14,7 +14,7 @@
 }
 
 .number_button:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .clear_button {
@@ -32,7 +32,7 @@
 }
 
 .clear_button:focus {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--focus);
 }
 
 .keyboard_container {
